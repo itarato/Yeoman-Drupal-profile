@@ -58,6 +58,19 @@ module.exports = generators.Base.extend({
       this.adminTheme = answers.adminTheme;
       this.modules = answers.modules;
 
+      switch (this.drupalCore) {
+        case 'Drupal 6':
+          this.origModuleName = 'default';
+          break;
+
+        default:
+          this.origModuleName = this.inheritBasicProfile ? 'standard' : 'minimal';
+          break;
+      }
+
+      this.srcPathPrefix = this.drupalCore + '/' + this.origModuleName + '/';
+      this.destPathPrefix = this.machineName + '/' + this.machineName;
+
       asyncWait();
     }.bind(this));
   },
@@ -69,17 +82,30 @@ module.exports = generators.Base.extend({
 
   generateInfoFile: function() {
     this.log('Add info file');
-    this.template(this.drupalCore + '/standard/standard.info', this.machineName + '/' + this.machineName + '.info');
+    try {
+      this.template(this.srcPathPrefix + this.origModuleName + '.info', this.destPathPrefix + '.info');
+    } catch (e) {
+      this.log('No info file');
+    }
   },
 
   generateProfileFile: function () {
     this.log('Add profile file');
-    this.template(this.drupalCore + '/standard/standard.profile', this.machineName + '/' + this.machineName + '.profile');
+    this.template(this.srcPathPrefix + this.origModuleName + '.profile', this.destPathPrefix + '.profile');
   },
 
   generateInstallFile: function () {
     this.log('Add install file');
-    this.template(this.drupalCore + '/standard/standard.install', this.machineName + '/' + this.machineName + '.install');
+    try {
+      this.template(this.srcPathPrefix + this.origModuleName + '.install', this.destPathPrefix + '.install');
+    } catch (e) {
+      this.log('No install file');
+    }
+  },
+
+  moveStaticFolders: function () {
+    this.log('Copy static folders');
+    this.directory(this.srcPathPrefix + 'translations', this.machineName + '/translations');
   }
 
 });

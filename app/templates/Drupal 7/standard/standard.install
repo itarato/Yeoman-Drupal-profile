@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Install, update and uninstall functions for the standard installation profile.
+ * Install, update and uninstall functions for the <%= profileName %> installation profile.
  */
 
 /**
@@ -11,7 +11,7 @@
  *
  * @see system_install()
  */
-function standard_install() {
+function <%= machineName %>_install() {
   // Add text formats.
   $filtered_html_format = array(
     'format' => 'filtered_html',
