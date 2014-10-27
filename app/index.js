@@ -13,8 +13,6 @@ module.exports = generators.Base.extend({
   },
 
   prompting: function () {
-    this.log('Prompting.');
-
     var asyncWait = this.async();
 
     var questions = [{
@@ -75,13 +73,29 @@ module.exports = generators.Base.extend({
     }.bind(this));
   },
 
-  generateFolder: function () {
-    this.log('Folder generation.');
+  generateStructure: function () {
     this.mkdir(this.machineName);
+
+    switch (this.drupalCore) {
+      case 'Drupal 6':
+        this._generateProfileFile();
+        break;
+
+      case 'Drupal 7':
+        this._generateProfileFile();
+        this._generateInfoFile();
+        this._generateInstallFile();
+        break;
+
+      case 'Drupal 8':
+        this._generateProfileFile();
+        this._generateInfoFile();
+        this._generateInstallFile();
+        break;
+    }
   },
 
-  generateInfoFile: function() {
-    this.log('Add info file');
+  _generateInfoFile: function() {
     try {
       this.template(this.srcPathPrefix + this.origModuleName + '.info', this.destPathPrefix + '.info');
     } catch (e) {
@@ -89,13 +103,15 @@ module.exports = generators.Base.extend({
     }
   },
 
-  generateProfileFile: function () {
-    this.log('Add profile file');
-    this.template(this.srcPathPrefix + this.origModuleName + '.profile', this.destPathPrefix + '.profile');
+  _generateProfileFile: function () {
+    try {
+      this.template(this.srcPathPrefix + this.origModuleName + '.profile', this.destPathPrefix + '.profile');
+    } catch (e) {
+      this.log('No profile file');
+    }
   },
 
-  generateInstallFile: function () {
-    this.log('Add install file');
+  _generateInstallFile: function () {
     try {
       this.template(this.srcPathPrefix + this.origModuleName + '.install', this.destPathPrefix + '.install');
     } catch (e) {
