@@ -8,12 +8,17 @@ var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
 
+  prompting: function () {
+    this.log('Prompting.');
+    //this.prompt('Hello');
+  },
+
   constructor: function () {
     generators.Base.apply(this, arguments);
   },
 
   generateFolder: function () {
-    console.log('Folder generation.');
+    this.log('Folder generation.');
   }
 
 });
