@@ -37,14 +37,19 @@ module.exports = generators.Base.extend({
       message: 'Inherit from "Basic profile"',
       default: false
     }, {
+      type: 'list',
       name: 'adminTheme',
       message: 'Admin theme',
+      choices: ['', 'stanley', 'adminimal_theme', 'seven', 'rubik', 'cube'],
       default: 'adminimal_theme'
     }, {
       type: 'checkbox',
       name: 'modules',
       message: 'Modules',
-      choices: ['devel', 'views', 'ctools', 'entity', 'admin_menu']
+      choices: [
+        'devel', 'views', 'ctools', 'entity', 'admin_menu',
+        'token', 'pathauto', 'date', 'features', 'panels'
+      ]
     }];
 
     this.prompt(questions, function ( answers ) {
