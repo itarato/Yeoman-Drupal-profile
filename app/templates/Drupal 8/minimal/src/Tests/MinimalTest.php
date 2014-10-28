@@ -2,26 +2,26 @@
 
 /**
  * @file
- * Contains Drupal\minimal\Tests\MinimalTest.
+ * Contains Drupal\<%= machineName %>\Tests\<%= machineNameUcfirst %>Test.
  */
 
-namespace Drupal\minimal\Tests;
+namespace Drupal\<%= machineName %>\Tests;
 
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests Minimal installation profile expectations.
+ * Tests <%= machineNameUcfirst %> installation profile expectations.
  *
- * @group minimal
+ * @group <%= machineName %>
  */
-class MinimalTest extends WebTestBase {
+class <%= machineNameUcfirst %>Test extends WebTestBase {
 
-  protected $profile = 'minimal';
+  protected $profile = '<%= machineName %>';
 
   /**
-   * Tests Minimal installation profile.
+   * Tests <%= machineNameUcfirst %> installation profile.
    */
-  function testMinimal() {
+  function test<%= machineNameUcfirst %>() {
     $this->drupalGet('');
     // Check the login block is present.
     $this->assertLink(t('Create new account'));

@@ -109,10 +109,10 @@ module.exports = generators.Base.extend({
     try {
       var generator = this;
       fileNames.forEach(function (fileName) {
-        generator.template(generator.drupalCore + '/' + generator.origModuleName + '/' + fileName, generator.machineName + '/' + fileName);
+        generator.template(generator.drupalCore + '/' + generator.origModuleName + '/' + fileName[0], generator.machineName + '/' + fileName[1]);
       });
     } catch (e) {
-      this.log('Files cannot be copied.', fileNames);
+      this.log('Files cannot be copied.', fileNames, e);
     }
   },
 
@@ -123,7 +123,7 @@ module.exports = generators.Base.extend({
         generator.directory(generator.drupalCore + '/' + generator.origModuleName + '/' + folderName, generator.machineName + '/' + folderName);
       });
     } catch (e) {
-      this.log('Folder cannot be copied.', folderNames);
+      this.log('Folder cannot be copied.', folderNames, e);
     }
   }
 

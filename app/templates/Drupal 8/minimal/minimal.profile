@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Enables modules and site configuration for a minimal site installation.
+ * Enables modules and site configuration for a <%= machineName %> site installation.
  */
 
 use Drupal\Core\Form\FormStateInterface;

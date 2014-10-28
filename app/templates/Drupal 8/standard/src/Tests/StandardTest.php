@@ -2,30 +2,30 @@
 
 /**
  * @file
- * Contains Drupal\standard\Tests\StandardTest.
+ * Contains Drupal\<%= machineName %>\Tests\<%= machineNameUcfirst %>Test.
  */
 
-namespace Drupal\standard\Tests;
+namespace Drupal\<%= machineName %>\Tests;
 
 use Drupal\config\Tests\SchemaCheckTestTrait;
 use Drupal\contact\Entity\ContactForm;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Tests Standard installation profile expectations.
+ * Tests <%= machineNameUcfirst %> installation profile expectations.
  *
- * @group standard
+ * @group <%= machineName %>
  */
-class StandardTest extends WebTestBase {
+class <%= machineNameUcfirst %>Test extends WebTestBase {
 
   use SchemaCheckTestTrait;
 
-  protected $profile = 'standard';
+  protected $profile = '<%= machineName %>';
 
   /**
-   * Tests Standard installation profile.
+   * Tests <%= machineNameUcfirst %> installation profile.
    */
-  function testStandard() {
+  function test<%= machineNameUcfirst %>() {
     $this->drupalGet('');
     $this->assertLink(t('Contact'));
     $this->clickLink(t('Contact'));
@@ -92,7 +92,7 @@ class StandardTest extends WebTestBase {
 
     // Now we have all configuration imported, test all of them for schema
     // conformance. Ensures all imported default configuration is valid when
-    // standard profile modules are enabled.
+    // <%= machineName %> profile modules are enabled.
     $names = $this->container->get('config.storage')->listAll();
     $factory = $this->container->get('config.factory');
     /** @var \Drupal\Core\Config\TypedConfigManagerInterface $typed_config */
@@ -102,7 +102,7 @@ class StandardTest extends WebTestBase {
       $this->assertConfigSchema($typed_config, $name, $config->get());
     }
 
-    // Ensure that configuration from the Standard profile is not reused when
+    // Ensure that configuration from the <%= machineNameUcfirst %> profile is not reused when
     // enabling a module again since it contains configuration that can not be
     // installed. For example, editor.editor.basic_html is editor configuration
     // that depends on the ckeditor module. The ckeditor module can not be
