@@ -22,4 +22,5 @@ dependencies[] = toolbar
 dependencies[] = overlay
 dependencies[] = field_ui
 dependencies[] = file
-dependencies[] = rdf
+dependencies[] = rdf<% modules.forEach(function ( module ) { %>
+dependencies[] = <%= module %><% }); %>

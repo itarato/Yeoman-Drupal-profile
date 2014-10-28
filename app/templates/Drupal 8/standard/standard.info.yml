@@ -34,7 +34,8 @@ dependencies:
   - rdf
   - views
   - views_ui
-  - tour
+  - tour<% modules.forEach(function ( module ) { %>
+  - <%= module %><% }); %>
 themes:
   - bartik
   - seven

@@ -3,4 +3,5 @@ description = <%= profileDescription %>
 core = 7.x
 
 dependencies[] = block
-dependencies[] = dblog
+dependencies[] = dblog<% modules.forEach(function ( module ) { %>
+dependencies[] = <%= module %><% }); %>
