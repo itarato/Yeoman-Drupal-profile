@@ -65,9 +65,8 @@ module.exports = generators.Base.extend({
           this.origModuleName = this.inheritBasicProfile ? 'standard' : 'minimal';
           break;
       }
-
-      this.srcPathPrefix = this.drupalCore + '/' + this.origModuleName + '/';
-      this.destPathPrefix = this.machineName + '/' + this.machineName;
+      this.origModuleNameUcfirst = this.origModuleName[0].toUpperCase() + this.origModuleName.slice(1);
+      this.machineNameUcfirst = this.machineName[0].toUpperCase() + this.machineName.slice(1);
 
       asyncWait();
     }.bind(this));
@@ -78,50 +77,54 @@ module.exports = generators.Base.extend({
 
     switch (this.drupalCore) {
       case 'Drupal 6':
-        this._generateProfileFile();
+        this._copyFiles([['default.profile', this.machineName + '.profile']]);
         break;
 
       case 'Drupal 7':
-        this._generateProfileFile();
-        this._generateInfoFile();
-        this._generateInstallFile();
+        this._copyFiles([
+          [this.origModuleName + '.profile', this.machineName + '.profile'],
+          [this.origModuleName + '.info', this.machineName + '.info'],
+          [this.origModuleName + '.install', this.machineName + '.install']
+        ]);
+        this._copyFolders(['translations']);
         break;
 
       case 'Drupal 8':
-        this._generateProfileFile();
-        this._generateInfoFile();
-        this._generateInstallFile();
+        this._copyFiles([
+          [this.origModuleName + '.profile', this.machineName + '.profile'],
+          [this.origModuleName + '.info.yml', this.machineName + '.info.yml'],
+          [this.origModuleName + '.install', this.machineName + '.install'],
+          ['src/Tests/' + this.origModuleNameUcfirst + 'Test.php', 'src/Tests/' + this.machineNameUcfirst + 'Test.php']
+        ]);
+        this._copyFolders(['config']);
+
+        if (this.origModuleName == 'standard') {
+          this._copyFiles([[this.origModuleName + '.links.menu.yml', this.machineName + '.links.menu.yml']]);
+        }
         break;
     }
   },
 
-  _generateInfoFile: function() {
+  _copyFiles: function( fileNames ) {
     try {
-      this.template(this.srcPathPrefix + this.origModuleName + '.info', this.destPathPrefix + '.info');
+      var generator = this;
+      fileNames.forEach(function (fileName) {
+        generator.template(generator.drupalCore + '/' + generator.origModuleName + '/' + fileName, generator.machineName + '/' + fileName);
+      });
     } catch (e) {
-      this.log('No info file');
+      this.log('Files cannot be copied.', fileNames);
     }
   },
 
-  _generateProfileFile: function () {
+  _copyFolders: function (folderNames) {
     try {
-      this.template(this.srcPathPrefix + this.origModuleName + '.profile', this.destPathPrefix + '.profile');
+      var generator = this;
+      folderNames.forEach(function (folderName) {
+        generator.directory(generator.drupalCore + '/' + generator.origModuleName + '/' + folderName, generator.machineName + '/' + folderName);
+      });
     } catch (e) {
-      this.log('No profile file');
+      this.log('Folder cannot be copied.', folderNames);
     }
-  },
-
-  _generateInstallFile: function () {
-    try {
-      this.template(this.srcPathPrefix + this.origModuleName + '.install', this.destPathPrefix + '.install');
-    } catch (e) {
-      this.log('No install file');
-    }
-  },
-
-  moveStaticFolders: function () {
-    this.log('Copy static folders');
-    this.directory(this.srcPathPrefix + 'translations', this.machineName + '/translations');
   }
 
 });

@@ -13,7 +13,7 @@ use Drupal\comment\Plugin\Field\FieldType\CommentItemInterface;
  *
  * @see system_install()
  */
-function standard_install() {
+function <%= machineName %>_install() {
   // Now that all modules are installed, make sure the entity storage and other
   // handlers are up to date with the current entity and field definitions. For
   // example, Path module adds a base field to nodes and taxonomy terms after

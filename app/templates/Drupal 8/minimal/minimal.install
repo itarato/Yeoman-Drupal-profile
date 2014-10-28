@@ -11,7 +11,7 @@
  *
  * @see system_install()
  */
-function minimal_install() {
+function <%= machineName %>_install() {
   // Disable the user pictures on nodes.
   \Drupal::config('system.theme.global')->set('features.node_user_picture', FALSE)->save();
 

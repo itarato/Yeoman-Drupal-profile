@@ -1,7 +1,6 @@
-name: Minimal
+name: <%= profileName %>
 type: profile
-description: 'Build a custom site without pre-configured functionality. Suitable for advanced users.'
-version: VERSION
+description: <%= profileDescription %>
 core: 8.x
 dependencies:
   - node

@@ -1,7 +1,6 @@
-name: Standard
+name: <%= profileName %>
 type: profile
-description: 'Install with commonly used features pre-configured.'
-version: VERSION
+description: <%= profileDescription %>
 core: 8.x
 dependencies:
   - node
