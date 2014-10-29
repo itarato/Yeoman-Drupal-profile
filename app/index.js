@@ -65,7 +65,7 @@ module.exports = generators.Base.extend({
       name: 'modules',
       message: 'Modules',
       choices: [
-        'devel', 'views', 'ctools', 'entity', 'admin_menu',
+        'devel', 'views', 'entity', 'admin_menu',
         'token', 'pathauto', 'date', 'features', 'panels'
       ]
     }];
