@@ -1,17 +1,32 @@
 /**
  * @file
+ *
+ * Yeoman Drupal profile generator definition.
+ * Creates Drupal 6/7/8 profiles with basic configuration.
  */
 
 'use strict';
 
+/**
+ * Yeoman generator module.
+ *
+ * @type {function(): Environment|exports}
+ */
 var generators = require('yeoman-generator');
 
+// Extend the base class.
 module.exports = generators.Base.extend({
 
+  /**
+   * Constructor.
+   */
   constructor: function () {
     generators.Base.apply(this, arguments);
   },
 
+  /**
+   * Stage callback: prompting.
+   */
   prompting: function () {
     var asyncWait = this.async();
 
@@ -55,6 +70,7 @@ module.exports = generators.Base.extend({
       ]
     }];
 
+    // Prompt the user.
     this.prompt(questions, function ( answers ) {
       this.profileName = answers.profileName;
       this.machineName = answers.machineName;
@@ -81,9 +97,14 @@ module.exports = generators.Base.extend({
     }.bind(this));
   },
 
+  /**
+   * Create the file structure: copy files and folders.
+   */
   generateStructure: function () {
+    // Create profile folder.
     this.mkdir(this.machineName);
 
+    // Depending on the core version execute the file copy operations.
     switch (this.drupalCore) {
       case 'Drupal 6':
         this._copyFiles([['default.profile', this.machineName + '.profile']]);
@@ -115,6 +136,16 @@ module.exports = generators.Base.extend({
     }
   },
 
+  /**
+   * Copy files with templating.
+   *
+   * @param fileNames
+   *  Array of array of file source paths and destination paths:
+   *  [
+   *    [oldfile.php, newfile.php]
+   *  ]
+   * @private
+   */
   _copyFiles: function( fileNames ) {
     try {
       var generator = this;
@@ -126,6 +157,13 @@ module.exports = generators.Base.extend({
     }
   },
 
+  /**
+   * Copy folders.
+   *
+   * @param folderNames
+   *  Array of folder names.
+   * @private
+   */
   _copyFolders: function (folderNames) {
     try {
       var generator = this;
