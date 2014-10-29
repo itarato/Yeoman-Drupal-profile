@@ -16,11 +16,11 @@ module.exports = generators.Base.extend({
     var asyncWait = this.async();
 
     var questions = [{
-      name: 'profileName',
-      message: 'Profile full name'
-    }, {
       name: 'machineName',
       message: 'Machine name'
+    }, {
+      name: 'profileName',
+      message: 'Profile full name'
     }, {
       name: 'profileDescription',
       message: 'Description',
@@ -36,6 +36,9 @@ module.exports = generators.Base.extend({
       name: 'inheritBasicProfile',
       message: 'Inherit from "Basic profile"',
       default: false
+    }, {
+      name: 'theme',
+      message: 'Main theme'
     }, {
       type: 'list',
       name: 'adminTheme',
@@ -58,6 +61,7 @@ module.exports = generators.Base.extend({
       this.profileDescription = answers.profileDescription;
       this.drupalCore = answers.drupalCore;
       this.inheritBasicProfile = answers.inheritBasicProfile;
+      this.theme = answers.theme;
       this.adminTheme = answers.adminTheme;
       this.modules = answers.modules;
 

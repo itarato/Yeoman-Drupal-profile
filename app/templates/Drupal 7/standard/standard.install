@@ -68,9 +68,21 @@ function <%= machineName %>_install() {
   $full_html_format = (object) $full_html_format;
   filter_format_save($full_html_format);
 
+  <% if (adminTheme) { %>
+    // Enable admin theme.
+    module_enable(array('<% adminTheme %>'));
+    variable_set('admin_theme', '<%= adminTheme %>');
+  <% } %>
+
+  <% if (theme) { %>
+    // Set default theme.
+    module_enable(array('<% theme %>'));
+    variable_set('theme_default', '<%= theme %>');
+  <% } %>
+
   // Enable some standard blocks.
   $default_theme = variable_get('theme_default', 'bartik');
-  $admin_theme = 'seven';
+  $admin_theme = '<%= adminTheme %>';
   $blocks = array(
     array(
       'module' => 'system',
@@ -427,6 +439,5 @@ function <%= machineName %>_install() {
     ->condition('type', 'theme')
     ->condition('name', 'seven')
     ->execute();
-  variable_set('admin_theme', 'seven');
   variable_set('node_admin_theme', '1');
 }

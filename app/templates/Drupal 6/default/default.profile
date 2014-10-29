@@ -134,6 +134,18 @@ function <%= machineName %>_profile_tasks(&$task, $url) {
 
   // Update the menu router information.
   menu_rebuild();
+
+  <% if (adminTheme) { %>
+    // Enable admin theme.
+    module_enable(array('<% adminTheme %>'));
+    variable_set('admin_theme', '<%= adminTheme %>');
+  <% } %>
+
+  <% if (theme) { %>
+    // Set default theme.
+    module_enable(array('<% theme %>'));
+    variable_set('theme_default', '<%= theme %>');
+  <% } %>
 }
 
 /**

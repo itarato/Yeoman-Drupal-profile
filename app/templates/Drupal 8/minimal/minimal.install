@@ -17,4 +17,7 @@ function <%= machineName %>_install() {
 
   // Allow visitor account creation, but with administrative approval.
   \Drupal::config('user.settings')->set('register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)->save();
+
+  // Enable the admin theme.
+  \Drupal::config('node.settings')->set('use_admin_theme', '1')->save();
 }
