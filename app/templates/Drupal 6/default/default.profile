@@ -137,13 +137,13 @@ function <%= machineName %>_profile_tasks(&$task, $url) {
 
   <% if (adminTheme) { %>
     // Enable admin theme.
-    module_enable(array('<% adminTheme %>'));
+    module_enable(array('<%= adminTheme %>'));
     variable_set('admin_theme', '<%= adminTheme %>');
   <% } %>
 
   <% if (theme) { %>
     // Set default theme.
-    module_enable(array('<% theme %>'));
+    module_enable(array('<%= theme %>'));
     variable_set('theme_default', '<%= theme %>');
   <% } %>
 }
