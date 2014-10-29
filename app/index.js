@@ -99,13 +99,14 @@ module.exports = generators.Base.extend({
         break;
 
       case 'Drupal 8':
+        this._copyFolders(['config']);
         this._copyFiles([
           [this.origModuleName + '.profile', this.machineName + '.profile'],
           [this.origModuleName + '.info.yml', this.machineName + '.info.yml'],
           [this.origModuleName + '.install', this.machineName + '.install'],
-          ['src/Tests/' + this.origModuleNameUcfirst + 'Test.php', 'src/Tests/' + this.machineNameUcfirst + 'Test.php']
+          ['src/Tests/' + this.origModuleNameUcfirst + 'Test.php', 'src/Tests/' + this.machineNameUcfirst + 'Test.php'],
+          ['config/install/system.theme.yml', 'config/install/system.theme.yml']
         ]);
-        this._copyFolders(['config']);
 
         if (this.origModuleName == 'standard') {
           this._copyFiles([[this.origModuleName + '.links.menu.yml', this.machineName + '.links.menu.yml']]);
