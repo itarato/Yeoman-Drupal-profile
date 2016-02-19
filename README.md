@@ -5,6 +5,12 @@ Yeoman - Drupal profile generator
 
 Generates Drupal profile (for core version 6, 7 and 8) with selected modules, themes and other basic settings.
 
+Install
+-------
+```
+npm install -g generator-drupal-profile
+```
+
 Usage
 -----
 
